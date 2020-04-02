@@ -52,7 +52,7 @@ $(document).ready(function() {
         searchable: false
       },
       { data: "nama_kelas" },
-      { data: "nama_jurusan" },
+      { data: "nama_jenjangkelas" },
       {
         data: "bulk_select",
         orderable: false,
@@ -140,21 +140,21 @@ $(document).ready(function() {
   });
 });
 
-function load_jurusan() {
-  var jurusan = $('select[name="nama_jurusan"]');
-  jurusan.children("option:not(:first)").remove();
+function load_jenjangkelas() {
+  var jenjangkelas = $('select[name="nama_jenjangkelas"]');
+  jenjangkelas.children("option:not(:first)").remove();
 
   ajaxcsrf(); // get csrf token
   $.ajax({
-    url: base_url + "jurusan/load_jurusan",
+    url: base_url + "jenjangkelas/load_jenjangkelas",
     type: "GET",
     success: function(data) {
       //console.log(data);
       if (data.length) {
-        var dataJurusan;
+        var dataJenjangkelas;
         $.each(data, function(key, val) {
-          dataJurusan = `<option value="${val.id_jurusan}">${val.nama_jurusan}</option>`;
-          jurusan.append(dataJurusan);
+          dataJenjangkelas = `<option value="${val.id_jenjangkelas}">${val.nama_jenjangkelas}</option>`;
+          jenjangkelas.append(dataJenjangkelas);
         });
       }
     }

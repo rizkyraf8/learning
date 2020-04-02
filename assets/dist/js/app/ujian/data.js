@@ -34,7 +34,7 @@ $(document).ready(function () {
                 "searchable": false
             },
             { "data": 'nama_ujian' },
-            { "data": 'nama_matkul' },
+            { "data": 'nama_matpel' },
             { "data": 'jumlah_soal' },
             { "data": 'waktu' },
             { "data": 'jenis' },
@@ -167,7 +167,7 @@ $(document).ready(function () {
         });
     });
 
-    table.ajax.url(base_url+'ujian/json/'+id_dosen).load();
+    table.ajax.url(base_url+'ujian/json/'+id_guru).load();
 });
 
 function bulk_delete() {

@@ -24,13 +24,13 @@ class HasilUjian extends CI_Controller {
 
 	public function data()
 	{
-		$nip_dosen = null;
+		$nip_guru = null;
 		
-		if( $this->ion_auth->in_group('dosen') ) {
-			$nip_dosen = $this->user->username;
+		if( $this->ion_auth->in_group('guru') ) {
+			$nip_guru = $this->user->username;
 		}
 
-		$this->output_json($this->ujian->getHasilUjian($nip_dosen), false);
+		$this->output_json($this->ujian->getHasilUjian($nip_guru), false);
 	}
 
 	public function NilaiMhs($id)
@@ -72,8 +72,8 @@ class HasilUjian extends CI_Controller {
 	{
 		$this->load->library('Pdf');
 
-		$mhs 	= $this->ujian->getIdMahasiswa($this->user->username);
-		$hasil 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa)->row();
+		$mhs 	= $this->ujian->getIdSiswa($this->user->username);
+		$hasil 	= $this->ujian->HslUjian($id, $mhs->id_siswa)->row();
 		$ujian 	= $this->ujian->getUjianById($id);
 		
 		$data = [

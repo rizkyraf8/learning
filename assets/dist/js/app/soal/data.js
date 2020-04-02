@@ -54,8 +54,8 @@ $(document).ready(function() {
         orderable: false,
         searchable: false
       },
-      { data: "nama_dosen" },
-      { data: "nama_matkul" },
+      { data: "nama_guru" },
+      { data: "nama_matpel" },
       { data: "soal" },
       { data: "created_on" }
     ],

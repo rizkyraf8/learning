@@ -18,20 +18,20 @@ class Ujian extends CI_Controller {
 		$this->form_validation->set_error_delimiters('','');
 
 		$this->user = $this->ion_auth->user()->row();
-		$this->mhs 	= $this->ujian->getIdMahasiswa($this->user->username);
+		$this->mhs 	= $this->ujian->getIdSiswa($this->user->username);
     }
 
-    public function akses_dosen()
+    public function akses_guru()
     {
-        if ( !$this->ion_auth->in_group('dosen') ){
-			show_error('Halaman ini khusus untuk dosen untuk membuat Test Online, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        if ( !$this->ion_auth->in_group('guru') ){
+			show_error('Halaman ini khusus untuk guru untuk membuat Test Online, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
 		}
     }
 
-    public function akses_mahasiswa()
+    public function akses_siswa()
     {
-        if ( !$this->ion_auth->in_group('mahasiswa') ){
-			show_error('Halaman ini khusus untuk mahasiswa mengikuti ujian, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        if ( !$this->ion_auth->in_group('siswa') ){
+			show_error('Halaman ini khusus untuk siswa mengikuti ujian, <a href="'.base_url('dashboard').'">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
 		}
     }
 
@@ -43,20 +43,20 @@ class Ujian extends CI_Controller {
 	
 	public function json($id=null)
 	{
-        $this->akses_dosen();
+        $this->akses_guru();
 
 		$this->output_json($this->ujian->getDataUjian($id), false);
 	}
 
     public function master()
 	{
-        $this->akses_dosen();
+        $this->akses_guru();
         $user = $this->ion_auth->user()->row();
         $data = [
 			'user' => $user,
 			'judul'	=> 'Ujian',
 			'subjudul'=> 'Data Ujian',
-			'dosen' => $this->ujian->getIdDosen($user->username),
+			'guru' => $this->ujian->getIdGuru($user->username),
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('ujian/data');
@@ -65,7 +65,7 @@ class Ujian extends CI_Controller {
 
 	public function add()
 	{
-		$this->akses_dosen();
+		$this->akses_guru();
 		
 		$user = $this->ion_auth->user()->row();
 
@@ -73,8 +73,8 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Ujian',
 			'subjudul'	=> 'Tambah Ujian',
-			'matkul'	=> $this->soal->getMatkulDosen($user->username),
-			'dosen'		=> $this->ujian->getIdDosen($user->username),
+			'matpel'	=> $this->soal->getMatpelGuru($user->username),
+			'guru'		=> $this->ujian->getIdGuru($user->username),
 		];
 
 		$this->load->view('_templates/dashboard/_header.php', $data);
@@ -84,7 +84,7 @@ class Ujian extends CI_Controller {
 	
 	public function edit($id)
 	{
-		$this->akses_dosen();
+		$this->akses_guru();
 		
 		$user = $this->ion_auth->user()->row();
 
@@ -92,8 +92,8 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Ujian',
 			'subjudul'	=> 'Edit Ujian',
-			'matkul'	=> $this->soal->getMatkulDosen($user->username),
-			'dosen'		=> $this->ujian->getIdDosen($user->username),
+			'matpel'	=> $this->soal->getMatpelGuru($user->username),
+			'guru'		=> $this->ujian->getIdGuru($user->username),
 			'ujian'		=> $this->ujian->getUjianById($id),
 		];
 
@@ -104,17 +104,17 @@ class Ujian extends CI_Controller {
 
 	public function convert_tgl($tgl)
 	{
-		$this->akses_dosen();
+		$this->akses_guru();
 		return date('Y-m-d H:i:s', strtotime($tgl));
 	}
 
 	public function validasi()
 	{
-		$this->akses_dosen();
+		$this->akses_guru();
 		
 		$user 	= $this->ion_auth->user()->row();
-		$dosen 	= $this->ujian->getIdDosen($user->username);
-		$jml 	= $this->ujian->getJumlahSoal($dosen->id_dosen)->jml_soal;
+		$guru 	= $this->ujian->getIdGuru($user->username);
+		$jml 	= $this->ujian->getJumlahSoal($guru->id_guru)->jml_soal;
 		$jml_a 	= $jml + 1; // Jika tidak mengerti, silahkan baca user_guide codeigniter tentang form_validation pada bagian less_than
 
 		$this->form_validation->set_rules('nama_ujian', 'Nama Ujian', 'required|alpha_numeric_spaces|max_length[50]');
@@ -131,8 +131,8 @@ class Ujian extends CI_Controller {
 		$this->load->helper('string');
 
 		$method 		= $this->input->post('method', true);
-		$dosen_id 		= $this->input->post('dosen_id', true);
-		$matkul_id 		= $this->input->post('matkul_id', true);
+		$guru_id 		= $this->input->post('guru_id', true);
+		$matpel_id 		= $this->input->post('matpel_id', true);
 		$nama_ujian 	= $this->input->post('nama_ujian', true);
 		$jumlah_soal 	= $this->input->post('jumlah_soal', true);
 		$tgl_mulai 		= $this->convert_tgl($this->input->post('tgl_mulai', 	true));
@@ -161,8 +161,8 @@ class Ujian extends CI_Controller {
 				'jenis' 		=> $jenis,
 			];
 			if($method === 'add'){
-				$input['dosen_id']	= $dosen_id;
-				$input['matkul_id'] = $matkul_id;
+				$input['guru_id']	= $guru_id;
+				$input['matpel_id'] = $matpel_id;
 				$input['token']		= $token;
 				$action = $this->master->create('m_ujian', $input);
 			}else if($method === 'edit'){
@@ -176,7 +176,7 @@ class Ujian extends CI_Controller {
 
 	public function delete()
 	{
-		$this->akses_dosen();
+		$this->akses_guru();
 		$chk = $this->input->post('checked', true);
         if(!$chk){
             $this->output_json(['status'=>false]);
@@ -202,15 +202,15 @@ class Ujian extends CI_Controller {
 
 	public function list_json()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_siswa();
 		
-		$list = $this->ujian->getListUjian($this->mhs->id_mahasiswa, $this->mhs->kelas_id);
+		$list = $this->ujian->getListUjian($this->mhs->id_siswa, $this->mhs->kelas_id);
 		$this->output_json($list, false);
 	}
 	
 	public function list()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_siswa();
 
 		$user = $this->ion_auth->user()->row();
 		
@@ -218,7 +218,7 @@ class Ujian extends CI_Controller {
 			'user' 		=> $user,
 			'judul'		=> 'Ujian',
 			'subjudul'	=> 'List Ujian',
-			'mhs' 		=> $this->ujian->getIdMahasiswa($user->username),
+			'mhs' 		=> $this->ujian->getIdSiswa($user->username),
 		];
 		$this->load->view('_templates/dashboard/_header.php', $data);
 		$this->load->view('ujian/list');
@@ -227,14 +227,14 @@ class Ujian extends CI_Controller {
 	
 	public function token($id)
 	{
-		$this->akses_mahasiswa();
+		$this->akses_siswa();
 		$user = $this->ion_auth->user()->row();
 		
 		$data = [
 			'user' 		=> $user,
 			'judul'		=> 'Ujian',
 			'subjudul'	=> 'Token Ujian',
-			'mhs' 		=> $this->ujian->getIdMahasiswa($user->username),
+			'mhs' 		=> $this->ujian->getIdSiswa($user->username),
 			'ujian'		=> $this->ujian->getUjianById($id),
 			'encrypted_id' => urlencode($this->encryption->encrypt($id))
 		];
@@ -263,7 +263,7 @@ class Ujian extends CI_Controller {
 
 	public function index()
 	{
-		$this->akses_mahasiswa();
+		$this->akses_siswa();
 		$key = $this->input->get('key', true);
 		$id  = $this->encryption->decrypt(rawurldecode($key));
 		
@@ -271,7 +271,7 @@ class Ujian extends CI_Controller {
 		$soal 		= $this->ujian->getSoal($id);
 		
 		$mhs		= $this->mhs;
-		$h_ujian 	= $this->ujian->HslUjian($id, $mhs->id_mahasiswa);
+		$h_ujian 	= $this->ujian->HslUjian($id, $mhs->id_siswa);
 	
 		$cek_sudah_ikut = $h_ujian->num_rows();
 
@@ -309,7 +309,7 @@ class Ujian extends CI_Controller {
 
 			$input = [
 				'ujian_id' 		=> $id,
-				'mahasiswa_id'	=> $mhs->id_mahasiswa,
+				'siswa_id'	=> $mhs->id_siswa,
 				'list_soal'		=> $list_id_soal,
 				'list_jawaban' 	=> $list_jw_soal,
 				'jml_benar'		=> 0,

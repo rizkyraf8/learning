@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller {
 		$box = [
 			[
 				'box' 		=> 'light-blue',
-				'total' 	=> $this->dashboard->total('jurusan'),
+				'total' 	=> $this->dashboard->total('jenjangkelas'),
 				'title'		=> 'Jenjang',
 				'icon'		=> 'graduation-cap'
 			],
@@ -29,13 +29,13 @@ class Dashboard extends CI_Controller {
 			],
 			[
 				'box' 		=> 'yellow-active',
-				'total' 	=> $this->dashboard->total('dosen'),
+				'total' 	=> $this->dashboard->total('guru'),
 				'title'		=> 'Guru',
 				'icon'		=> 'user-secret'
 			],
 			[
 				'box' 		=> 'red',
-				'total' 	=> $this->dashboard->total('mahasiswa'),
+				'total' 	=> $this->dashboard->total('siswa'),
 				'title'		=> 'Siswa',
 				'icon'		=> 'user'
 			],
@@ -55,18 +55,18 @@ class Dashboard extends CI_Controller {
 
 		if ( $this->ion_auth->is_admin() ) {
 			$data['info_box'] = $this->admin_box();
-		} elseif ( $this->ion_auth->in_group('dosen') ) {
-			$matkul = ['matkul' => 'dosen.matkul_id=matkul.id_matkul'];
-			$data['dosen'] = $this->dashboard->get_where('dosen', 'nip', $user->username, $matkul)->row();
+		} elseif ( $this->ion_auth->in_group('guru') ) {
+			$matpel = ['matpel' => 'guru.matpel_id=matpel.id_matpel'];
+			$data['guru'] = $this->dashboard->get_where('guru', 'nip', $user->username, $matpel)->row();
 
-			$kelas = ['kelas' => 'kelas_dosen.kelas_id=kelas.id_kelas'];
-			$data['kelas'] = $this->dashboard->get_where('kelas_dosen', 'dosen_id' , $data['dosen']->id_dosen, $kelas, ['nama_kelas'=>'ASC'])->result();
+			$kelas = ['kelas' => 'kelas_guru.kelas_id=kelas.id_kelas'];
+			$data['kelas'] = $this->dashboard->get_where('kelas_guru', 'guru_id' , $data['guru']->id_guru, $kelas, ['nama_kelas'=>'ASC'])->result();
 		}else{
 			$join = [
 				'kelas b' 	=> 'a.kelas_id = b.id_kelas',
-				'jurusan c'	=> 'b.jurusan_id = c.id_jurusan'
+				'jenjangkelas c'	=> 'b.jenjangkelas_id = c.id_jenjangkelas'
 			];
-			$data['mahasiswa'] = $this->dashboard->get_where('mahasiswa a', 'nim', $user->username, $join)->row();
+			$data['siswa'] = $this->dashboard->get_where('siswa a', 'nim', $user->username, $join)->row();
 		}
 
 		$this->load->view('_templates/dashboard/_header.php', $data);

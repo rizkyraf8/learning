@@ -81,15 +81,15 @@ Dolore distinctio, at consequuntur magnam cupiditate voluptate hic ratione ea il
         <td>{$mhs->nama_kelas}</td>
     </tr>
     <tr>
-        <th>Jurusan</th>
-        <td>{$mhs->nama_jurusan}</td>
+        <th>Jenjangkelas</th>
+        <td>{$mhs->nama_jenjangkelas}</td>
     </tr>
 </table>
 <h2>Data Ujian</h2>
 <table id="data-hasil">
     <tr>
-        <th>Mata Kuliah</th>
-        <td>{$ujian->nama_matkul}</td>
+        <th>Mata Pelajaran</th>
+        <td>{$ujian->nama_matpel}</td>
     </tr>
     <tr>
         <th>Nama Ujian</th>

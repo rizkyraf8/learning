@@ -7,8 +7,8 @@
     </div>
     <div class="col-sm-3">
         <div class="alert bg-blue">
-            <h4>Jurusan<i class="pull-right fa fa-graduation-cap"></i></h4>
-            <span class="d-block"> <?=$mhs->nama_jurusan?></span>                
+            <h4>Jenjangkelas<i class="pull-right fa fa-graduation-cap"></i></h4>
+            <span class="d-block"> <?=$mhs->nama_jenjangkelas?></span>                
         </div>
     </div>
     <div class="col-sm-3">
@@ -45,8 +45,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Ujian</th>
-                        <th>Mata Kuliah</th>
-						<th>Dosen</th>
+                        <th>Mata Pelajaran</th>
+						<th>Guru</th>
                         <th>Jumlah Soal</th>
                         <th>Waktu</th>
                         <th class="text-center">Aksi</th>
@@ -56,8 +56,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Ujian</th>
-                        <th>Mata Kuliah</th>
-						<th>Dosen</th>
+                        <th>Mata Pelajaran</th>
+						<th>Guru</th>
                         <th>Jumlah Soal</th>
                         <th>Waktu</th>
                         <th class="text-center">Aksi</th>

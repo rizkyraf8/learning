@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
             { "data": 'nama' },
             { "data": 'nama_kelas' },
-            { "data": 'nama_jurusan' },
+            { "data": 'nama_jenjangkelas' },
             { "data": 'jml_benar' },
             { "data": 'nilai' },
         ],

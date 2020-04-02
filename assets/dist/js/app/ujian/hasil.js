@@ -50,8 +50,8 @@ $(document).ready(function() {
         searchable: false
       },
       { data: "nama_ujian" },
-      { data: "nama_matkul" },
-      { data: "nama_dosen" },
+      { data: "nama_matpel" },
+      { data: "nama_guru" },
       { data: "jumlah_soal" },
       { data: "waktu" },
       { data: "tgl_mulai" },

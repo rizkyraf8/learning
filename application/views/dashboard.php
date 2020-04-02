@@ -18,7 +18,7 @@
     <?php endforeach; ?>
 </div>
 
-<?php elseif( $this->ion_auth->in_group('dosen') ) : ?>
+<?php elseif( $this->ion_auth->in_group('guru') ) : ?>
 
 <div class="row">
     <div class="col-sm-4">
@@ -29,19 +29,19 @@
             <table class="table table-hover">
                 <tr>
                     <th>Nama</th>
-                    <td><?=$dosen->nama_dosen?></td>
+                    <td><?=$guru->nama_guru?></td>
                 </tr>
                 <tr>
                     <th>NIP</th>
-                    <td><?=$dosen->nip?></td>
+                    <td><?=$guru->nip?></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$dosen->email?></td>
+                    <td><?=$guru->email?></td>
                 </tr>
                 <tr>
-                    <th>Mata Kuliah</th>
-                    <td><?=$dosen->nama_matkul?></td>
+                    <th>Mata Pelajaran</th>
+                    <td><?=$guru->nama_matpel?></td>
                 </tr>
                 <tr>
                     <th>Daftar Kelas</th>
@@ -86,27 +86,27 @@
             <table class="table table-hover">
                 <tr>
                     <th>NIM</th>
-                    <td><?=$mahasiswa->nim?></td>
+                    <td><?=$siswa->nim?></td>
                 </tr>
                 <tr>
                     <th>Nama</th>
-                    <td><?=$mahasiswa->nama?></td>
+                    <td><?=$siswa->nama?></td>
                 </tr>
                 <tr>
                     <th>Jenis Kelamin</th>
-                    <td><?=$mahasiswa->jenis_kelamin === 'L' ? "Laki-laki" : "Perempuan" ;?></td>
+                    <td><?=$siswa->jenis_kelamin === 'L' ? "Laki-laki" : "Perempuan" ;?></td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td><?=$mahasiswa->email?></td>
+                    <td><?=$siswa->email?></td>
                 </tr>
                 <tr>
-                    <th>Jurusan</th>
-                    <td><?=$mahasiswa->nama_jurusan?></td>
+                    <th>Jenjangkelas</th>
+                    <td><?=$siswa->nama_jenjangkelas?></td>
                 </tr>
                 <tr>
                     <th>Kelas</th>
-                    <td><?=$mahasiswa->nama_kelas?></td>
+                    <td><?=$siswa->nama_kelas?></td>
                 </tr>
             </table>
         </div>

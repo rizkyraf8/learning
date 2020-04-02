@@ -10,7 +10,7 @@
         <ul class="alert alert-info" style="padding-left: 40px">
             <li>Silahkan import data dari excel, menggunakan format yang sudah disediakan</li>
             <li>Data tidak boleh ada yang kosong, harus terisi semua.</li>
-            <li>Untuk data jurusan, hanya bisa diisi menggunakan ID Jurusan. <a data-toggle="modal" href="#jurusanId" style="text-decoration:none" class="btn btn-xs btn-primary">Lihat ID</a>.</li>
+            <li>Untuk data jenjangkelas, hanya bisa diisi menggunakan ID Jenjangkelas. <a data-toggle="modal" href="#jenjangkelasId" style="text-decoration:none" class="btn btn-xs btn-primary">Lihat ID</a>.</li>
         </ul>
         <div class="text-center">
             <a href="<?= base_url('uploads/import/format/kelas.xlsx') ?>" class="btn-default btn">Download Format</a>
@@ -37,7 +37,7 @@
                             <tr>
                                 <td>No</td>
                                 <td>Kelas</td>
-                                <td>Jurusan</td>
+                                <td>Jenjangkelas</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,12 +54,12 @@
                                         <td class="<?= $data['kelas'] == null ? 'bg-danger' : ''; ?>">
                                             <?= $data['kelas'] == null ? 'BELUM DIISI' : $data['kelas']; ?>
                                         </td>
-                                        <td class="<?= $data['jurusan'] == null ? 'bg-danger' : ''; ?>">
-                                            <?= $data['jurusan'] == null ? 'BELUM DIISI' : $data['jurusan'];; ?>
+                                        <td class="<?= $data['jenjangkelas'] == null ? 'bg-danger' : ''; ?>">
+                                            <?= $data['jenjangkelas'] == null ? 'BELUM DIISI' : $data['jenjangkelas'];; ?>
                                         </td>
                                     </tr>
                             <?php
-                                        if ($data['kelas'] == null || $data['jurusan'] == null) {
+                                        if ($data['kelas'] == null || $data['jenjangkelas'] == null) {
                                             $status = false;
                                         }
                                     endforeach;
@@ -81,25 +81,25 @@
     </div>
 </div>
 
-<div class="modal fade" id="jurusanId">
+<div class="modal fade" id="jenjangkelasId">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Data Jurusan</h4>
+                <h4 class="modal-title">Data Jenjangkelas</h4>
             </div>
             <div class="modal-body">
-                <table id="jurusan" class="table table-condensed table-striped">
+                <table id="jenjangkelas" class="table table-condensed table-striped">
                     <thead>
                         <th>ID</th>
-                        <th>Jurusan</th>
+                        <th>Jenjangkelas</th>
                     </thead>
                     <tbody>
-                        <?php foreach ($jurusan as $j) : ?>
+                        <?php foreach ($jenjangkelas as $j) : ?>
                             <tr>
-                                <td><?= $j->id_jurusan; ?></td>
-                                <td><?= $j->nama_jurusan; ?></td>
+                                <td><?= $j->id_jenjangkelas; ?></td>
+                                <td><?= $j->nama_jenjangkelas; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -112,7 +112,7 @@
 <script>
     $(document).ready(function() {
         let table;
-        table = $("#jurusan").DataTable({
+        table = $("#jenjangkelas").DataTable({
             "lengthMenu": [
                 [5, 10, 25, 50, 100, -1],
                 [5, 10, 25, 50, 100, "All"]

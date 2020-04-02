@@ -25,34 +25,34 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dosen`
+-- Table structure for table `guru`
 --
 
-CREATE TABLE `dosen` (
-  `id_dosen` int(11) NOT NULL,
+CREATE TABLE `guru` (
+  `id_guru` int(11) NOT NULL,
   `nip` char(12) NOT NULL,
-  `nama_dosen` varchar(50) NOT NULL,
+  `nama_guru` varchar(50) NOT NULL,
   `email` varchar(254) NOT NULL,
-  `matkul_id` int(11) NOT NULL
+  `matpel_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `dosen`
+-- Dumping data for table `guru`
 --
 
-INSERT INTO `dosen` (`id_dosen`, `nip`, `nama_dosen`, `email`, `matkul_id`) VALUES
+INSERT INTO `guru` (`id_guru`, `nip`, `nama_guru`, `email`, `matpel_id`) VALUES
 (1, '12345678', 'Koro Sensei', 'korosensei@gmail.com', 1),
 (3, '01234567', 'Tobirama Sensei', 'tobirama@gmail.com', 5);
 
 --
--- Triggers `dosen`
+-- Triggers `guru`
 --
 DELIMITER $$
-CREATE TRIGGER `edit_user_dosen` BEFORE UPDATE ON `dosen` FOR EACH ROW UPDATE `users` SET `email` = NEW.email, `username` = NEW.nip WHERE `users`.`username` = OLD.nip
+CREATE TRIGGER `edit_user_guru` BEFORE UPDATE ON `guru` FOR EACH ROW UPDATE `users` SET `email` = NEW.email, `username` = NEW.nip WHERE `users`.`username` = OLD.nip
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `hapus_user_dosen` BEFORE DELETE ON `dosen` FOR EACH ROW DELETE FROM `users` WHERE `users`.`username` = OLD.nip
+CREATE TRIGGER `hapus_user_guru` BEFORE DELETE ON `guru` FOR EACH ROW DELETE FROM `users` WHERE `users`.`username` = OLD.nip
 $$
 DELIMITER ;
 
@@ -74,8 +74,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'dosen', 'Pembuat Soal dan ujian'),
-(3, 'mahasiswa', 'Peserta Ujian');
+(2, 'guru', 'Pembuat Soal dan ujian'),
+(3, 'siswa', 'Peserta Ujian');
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 CREATE TABLE `h_ujian` (
   `id` int(11) NOT NULL,
   `ujian_id` int(11) NOT NULL,
-  `mahasiswa_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
   `list_soal` longtext NOT NULL,
   `list_jawaban` longtext NOT NULL,
   `jml_benar` int(11) NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `h_ujian` (
 -- Dumping data for table `h_ujian`
 --
 
-INSERT INTO `h_ujian` (`id`, `ujian_id`, `mahasiswa_id`, `list_soal`, `list_jawaban`, `jml_benar`, `nilai`, `nilai_bobot`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
+INSERT INTO `h_ujian` (`id`, `ujian_id`, `siswa_id`, `list_soal`, `list_jawaban`, `jml_benar`, `nilai`, `nilai_bobot`, `tgl_mulai`, `tgl_selesai`, `status`) VALUES
 (1, 1, 1, '1,2,3', '1:B:N,2:A:N,3:D:N', 3, '100.00', '100.00', '2019-02-16 08:35:05', '2019-02-16 08:36:05', 'N'),
 (2, 2, 1, '3,2,1', '3:D:N,2:C:N,1:D:N', 1, '33.00', '100.00', '2019-02-16 10:11:14', '2019-02-16 10:12:14', 'N'),
 (3, 3, 1, '5,6', '5:C:N,6:D:N', 2, '100.00', '100.00', '2019-02-16 11:06:25', '2019-02-16 11:07:25', 'N');
@@ -109,39 +109,39 @@ INSERT INTO `h_ujian` (`id`, `ujian_id`, `mahasiswa_id`, `list_soal`, `list_jawa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan`
+-- Table structure for table `jenjangkelas`
 --
 
-CREATE TABLE `jurusan` (
-  `id_jurusan` int(11) NOT NULL,
-  `nama_jurusan` varchar(30) NOT NULL
+CREATE TABLE `jenjangkelas` (
+  `id_jenjangkelas` int(11) NOT NULL,
+  `nama_jenjangkelas` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `jurusan`
+-- Dumping data for table `jenjangkelas`
 --
 
-INSERT INTO `jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
+INSERT INTO `jenjangkelas` (`id_jenjangkelas`, `nama_jenjangkelas`) VALUES
 (1, 'Sistem Informasi'),
 (2, 'Teknik Informatika');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jurusan_matkul`
+-- Table structure for table `jenjangkelas_matpel`
 --
 
-CREATE TABLE `jurusan_matkul` (
+CREATE TABLE `jenjangkelas_matpel` (
   `id` int(11) NOT NULL,
-  `matkul_id` int(11) NOT NULL,
-  `jurusan_id` int(11) NOT NULL
+  `matpel_id` int(11) NOT NULL,
+  `jenjangkelas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `jurusan_matkul`
+-- Dumping data for table `jenjangkelas_matpel`
 --
 
-INSERT INTO `jurusan_matkul` (`id`, `matkul_id`, `jurusan_id`) VALUES
+INSERT INTO `jenjangkelas_matpel` (`id`, `matpel_id`, `jenjangkelas_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 2),
@@ -156,14 +156,14 @@ INSERT INTO `jurusan_matkul` (`id`, `matkul_id`, `jurusan_id`) VALUES
 CREATE TABLE `kelas` (
   `id_kelas` int(11) NOT NULL,
   `nama_kelas` varchar(30) NOT NULL,
-  `jurusan_id` int(11) NOT NULL
+  `jenjangkelas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kelas`
 --
 
-INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `jurusan_id`) VALUES
+INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `jenjangkelas_id`) VALUES
 (1, '12.1E.13', 1),
 (2, '11.1A.13', 1),
 (3, '10.1D.13', 1),
@@ -173,20 +173,20 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `jurusan_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas_dosen`
+-- Table structure for table `kelas_guru`
 --
 
-CREATE TABLE `kelas_dosen` (
+CREATE TABLE `kelas_guru` (
   `id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL,
-  `dosen_id` int(11) NOT NULL
+  `guru_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `kelas_dosen`
+-- Dumping data for table `kelas_guru`
 --
 
-INSERT INTO `kelas_dosen` (`id`, `kelas_id`, `dosen_id`) VALUES
+INSERT INTO `kelas_guru` (`id`, `kelas_id`, `guru_id`) VALUES
 (1, 3, 1),
 (2, 2, 1),
 (3, 1, 1),
@@ -216,41 +216,41 @@ INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mahasiswa`
+-- Table structure for table `siswa`
 --
 
-CREATE TABLE `mahasiswa` (
-  `id_mahasiswa` int(11) NOT NULL,
+CREATE TABLE `siswa` (
+  `id_siswa` int(11) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `nim` char(20) NOT NULL,
   `email` varchar(254) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
-  `kelas_id` int(11) NOT NULL COMMENT 'kelas&jurusan'
+  `kelas_id` int(11) NOT NULL COMMENT 'kelas&jenjangkelas'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `mahasiswa`
+-- Dumping data for table `siswa`
 --
 
-INSERT INTO `mahasiswa` (`id_mahasiswa`, `nama`, `nim`, `email`, `jenis_kelamin`, `kelas_id`) VALUES
+INSERT INTO `siswa` (`id_siswa`, `nama`, `nim`, `email`, `jenis_kelamin`, `kelas_id`) VALUES
 (1, 'Muhammad Ghifari Arfananda', '12183018', 'mghifariarfan@gmail.com', 'L', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matkul`
+-- Table structure for table `matpel`
 --
 
-CREATE TABLE `matkul` (
-  `id_matkul` int(11) NOT NULL,
-  `nama_matkul` varchar(50) NOT NULL
+CREATE TABLE `matpel` (
+  `id_matpel` int(11) NOT NULL,
+  `nama_matpel` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `matkul`
+-- Dumping data for table `matpel`
 --
 
-INSERT INTO `matkul` (`id_matkul`, `nama_matkul`) VALUES
+INSERT INTO `matpel` (`id_matpel`, `nama_matpel`) VALUES
 (1, 'Bahasa Inggris'),
 (2, 'Dasar Pemrograman'),
 (3, 'Enterpreneurship'),
@@ -264,8 +264,8 @@ INSERT INTO `matkul` (`id_matkul`, `nama_matkul`) VALUES
 
 CREATE TABLE `m_ujian` (
   `id_ujian` int(11) NOT NULL,
-  `dosen_id` int(11) NOT NULL,
-  `matkul_id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL,
+  `matpel_id` int(11) NOT NULL,
   `nama_ujian` varchar(200) NOT NULL,
   `jumlah_soal` int(11) NOT NULL,
   `waktu` int(11) NOT NULL,
@@ -279,7 +279,7 @@ CREATE TABLE `m_ujian` (
 -- Dumping data for table `m_ujian`
 --
 
-INSERT INTO `m_ujian` (`id_ujian`, `dosen_id`, `matkul_id`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
+INSERT INTO `m_ujian` (`id_ujian`, `guru_id`, `matpel_id`, `nama_ujian`, `jumlah_soal`, `waktu`, `jenis`, `tgl_mulai`, `terlambat`, `token`) VALUES
 (1, 1, 1, 'First Test', 3, 1, 'acak', '2019-02-15 17:25:40', '2019-02-20 17:25:44', 'DPEHL'),
 (2, 1, 1, 'Second Test', 3, 1, 'acak', '2019-02-16 10:05:08', '2019-02-17 10:05:10', 'GOEMB'),
 (3, 3, 5, 'Try Out 01', 2, 1, 'acak', '2019-02-16 07:00:00', '2019-02-28 14:00:00', 'IFSDH');
@@ -292,8 +292,8 @@ INSERT INTO `m_ujian` (`id_ujian`, `dosen_id`, `matkul_id`, `nama_ujian`, `jumla
 
 CREATE TABLE `tb_soal` (
   `id_soal` int(11) NOT NULL,
-  `dosen_id` int(11) NOT NULL,
-  `matkul_id` int(11) NOT NULL,
+  `guru_id` int(11) NOT NULL,
+  `matpel_id` int(11) NOT NULL,
   `bobot` int(11) NOT NULL,
   `file` varchar(255) NOT NULL,
   `tipe_file` varchar(50) NOT NULL,
@@ -317,7 +317,7 @@ CREATE TABLE `tb_soal` (
 -- Dumping data for table `tb_soal`
 --
 
-INSERT INTO `tb_soal` (`id_soal`, `dosen_id`, `matkul_id`, `bobot`, `file`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `file_a`, `file_b`, `file_c`, `file_d`, `file_e`, `jawaban`, `created_on`, `updated_on`) VALUES
+INSERT INTO `tb_soal` (`id_soal`, `guru_id`, `matpel_id`, `bobot`, `file`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `file_a`, `file_b`, `file_c`, `file_d`, `file_e`, `jawaban`, `created_on`, `updated_on`) VALUES
 (1, 1, 1, 1, '', '', '<p>Dian : The cake is scrumptious! I love i<br>Joni : … another piece?<br>Dian : Thank you. You should tell me the recipe.<br>Joni : I will.</p><p>Which of the following offering expressions best fill the blank?</p>', '<p>Do you mind if you have</p>', '<p>Would you like</p>', '<p>Shall you hav</p>', '<p>Can I have you</p>', '<p>I will bring you</p>', '', '', '', '', '', 'B', 1550225760, 1550225760),
 (2, 1, 1, 1, '', '', '<p>Fitri : The French homework is really hard. I don’t feel like to do it.<br>Rahmat : … to help you?<br>Fitri : It sounds great. Thanks, Rahmat!</p><p><br></p><p>Which of the following offering expressions best fill the blank?</p>', '<p>Would you like me</p>', '<p>Do you mind if I</p>', '<p>Shall I</p>', '<p>Can I</p>', '<p>I will</p>', '', '', '', '', '', 'A', 1550225952, 1550225952),
 (3, 1, 1, 1, 'd166959dabe9a81e4567dc44021ea503.jpg', 'image/jpeg', '<p>What is the picture describing?</p><p><small class=\"text-muted\">Sumber gambar: meros.jp</small></p>', '<p>The students are arguing with their lecturer.</p>', '<p>The students are watching their preacher.</p>', '<p>The teacher is angry with their students.</p>', '<p>The students are listening to their lecturer.</p>', '<p>The students detest the preacher.</p>', '', '', '', '', '', 'D', 1550226174, 1550226174),
@@ -389,13 +389,13 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 --
 
 --
--- Indexes for table `dosen`
+-- Indexes for table `guru`
 --
-ALTER TABLE `dosen`
-  ADD PRIMARY KEY (`id_dosen`),
+ALTER TABLE `guru`
+  ADD PRIMARY KEY (`id_guru`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `nip` (`nip`),
-  ADD KEY `matkul_id` (`matkul_id`);
+  ADD KEY `matpel_id` (`matpel_id`);
 
 --
 -- Indexes for table `groups`
@@ -409,36 +409,36 @@ ALTER TABLE `groups`
 ALTER TABLE `h_ujian`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ujian_id` (`ujian_id`),
-  ADD KEY `mahasiswa_id` (`mahasiswa_id`);
+  ADD KEY `siswa_id` (`siswa_id`);
 
 --
--- Indexes for table `jurusan`
+-- Indexes for table `jenjangkelas`
 --
-ALTER TABLE `jurusan`
-  ADD PRIMARY KEY (`id_jurusan`);
+ALTER TABLE `jenjangkelas`
+  ADD PRIMARY KEY (`id_jenjangkelas`);
 
 --
--- Indexes for table `jurusan_matkul`
+-- Indexes for table `jenjangkelas_matpel`
 --
-ALTER TABLE `jurusan_matkul`
+ALTER TABLE `jenjangkelas_matpel`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `jurusan_id` (`jurusan_id`),
-  ADD KEY `matkul_id` (`matkul_id`);
+  ADD KEY `jenjangkelas_id` (`jenjangkelas_id`),
+  ADD KEY `matpel_id` (`matpel_id`);
 
 --
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
-  ADD KEY `jurusan_id` (`jurusan_id`);
+  ADD KEY `jenjangkelas_id` (`jenjangkelas_id`);
 
 --
--- Indexes for table `kelas_dosen`
+-- Indexes for table `kelas_guru`
 --
-ALTER TABLE `kelas_dosen`
+ALTER TABLE `kelas_guru`
   ADD PRIMARY KEY (`id`),
   ADD KEY `kelas_id` (`kelas_id`),
-  ADD KEY `dosen_id` (`dosen_id`);
+  ADD KEY `guru_id` (`guru_id`);
 
 --
 -- Indexes for table `login_attempts`
@@ -447,35 +447,35 @@ ALTER TABLE `login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mahasiswa`
+-- Indexes for table `siswa`
 --
-ALTER TABLE `mahasiswa`
-  ADD PRIMARY KEY (`id_mahasiswa`),
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id_siswa`),
   ADD UNIQUE KEY `nim` (`nim`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `kelas_id` (`kelas_id`);
 
 --
--- Indexes for table `matkul`
+-- Indexes for table `matpel`
 --
-ALTER TABLE `matkul`
-  ADD PRIMARY KEY (`id_matkul`);
+ALTER TABLE `matpel`
+  ADD PRIMARY KEY (`id_matpel`);
 
 --
 -- Indexes for table `m_ujian`
 --
 ALTER TABLE `m_ujian`
   ADD PRIMARY KEY (`id_ujian`),
-  ADD KEY `matkul_id` (`matkul_id`),
-  ADD KEY `dosen_id` (`dosen_id`);
+  ADD KEY `matpel_id` (`matpel_id`),
+  ADD KEY `guru_id` (`guru_id`);
 
 --
 -- Indexes for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
   ADD PRIMARY KEY (`id_soal`),
-  ADD KEY `matkul_id` (`matkul_id`),
-  ADD KEY `dosen_id` (`dosen_id`);
+  ADD KEY `matpel_id` (`matpel_id`),
+  ADD KEY `guru_id` (`guru_id`);
 
 --
 -- Indexes for table `users`
@@ -501,10 +501,10 @@ ALTER TABLE `users_groups`
 --
 
 --
--- AUTO_INCREMENT for table `dosen`
+-- AUTO_INCREMENT for table `guru`
 --
-ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `guru`
+  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -519,15 +519,15 @@ ALTER TABLE `h_ujian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `jurusan`
+-- AUTO_INCREMENT for table `jenjangkelas`
 --
-ALTER TABLE `jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `jenjangkelas`
+  MODIFY `id_jenjangkelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `jurusan_matkul`
+-- AUTO_INCREMENT for table `jenjangkelas_matpel`
 --
-ALTER TABLE `jurusan_matkul`
+ALTER TABLE `jenjangkelas_matpel`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -537,9 +537,9 @@ ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `kelas_dosen`
+-- AUTO_INCREMENT for table `kelas_guru`
 --
-ALTER TABLE `kelas_dosen`
+ALTER TABLE `kelas_guru`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
@@ -549,16 +549,16 @@ ALTER TABLE `login_attempts`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `mahasiswa`
+-- AUTO_INCREMENT for table `siswa`
 --
-ALTER TABLE `mahasiswa`
-  MODIFY `id_mahasiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `siswa`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `matkul`
+-- AUTO_INCREMENT for table `matpel`
 --
-ALTER TABLE `matkul`
-  MODIFY `id_matkul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `matpel`
+  MODIFY `id_matpel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `m_ujian`
@@ -589,51 +589,51 @@ ALTER TABLE `users_groups`
 --
 
 --
--- Constraints for table `dosen`
+-- Constraints for table `guru`
 --
-ALTER TABLE `dosen`
-  ADD CONSTRAINT `dosen_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `matkul` (`id_matkul`);
+ALTER TABLE `guru`
+  ADD CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`matpel_id`) REFERENCES `matpel` (`id_matpel`);
 
 --
 -- Constraints for table `h_ujian`
 --
 ALTER TABLE `h_ujian`
   ADD CONSTRAINT `h_ujian_ibfk_1` FOREIGN KEY (`ujian_id`) REFERENCES `m_ujian` (`id_ujian`),
-  ADD CONSTRAINT `h_ujian_ibfk_2` FOREIGN KEY (`mahasiswa_id`) REFERENCES `mahasiswa` (`id_mahasiswa`);
+  ADD CONSTRAINT `h_ujian_ibfk_2` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id_siswa`);
 
 --
--- Constraints for table `jurusan_matkul`
+-- Constraints for table `jenjangkelas_matpel`
 --
-ALTER TABLE `jurusan_matkul`
-  ADD CONSTRAINT `jurusan_matkul_ibfk_1` FOREIGN KEY (`jurusan_id`) REFERENCES `jurusan` (`id_jurusan`),
-  ADD CONSTRAINT `jurusan_matkul_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `matkul` (`id_matkul`);
+ALTER TABLE `jenjangkelas_matpel`
+  ADD CONSTRAINT `jenjangkelas_matpel_ibfk_1` FOREIGN KEY (`jenjangkelas_id`) REFERENCES `jenjangkelas` (`id_jenjangkelas`),
+  ADD CONSTRAINT `jenjangkelas_matpel_ibfk_2` FOREIGN KEY (`matpel_id`) REFERENCES `matpel` (`id_matpel`);
 
 --
--- Constraints for table `kelas_dosen`
+-- Constraints for table `kelas_guru`
 --
-ALTER TABLE `kelas_dosen`
-  ADD CONSTRAINT `kelas_dosen_ibfk_1` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`id_dosen`),
-  ADD CONSTRAINT `kelas_dosen_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
+ALTER TABLE `kelas_guru`
+  ADD CONSTRAINT `kelas_guru_ibfk_1` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`id_guru`),
+  ADD CONSTRAINT `kelas_guru_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
 
 --
--- Constraints for table `mahasiswa`
+-- Constraints for table `siswa`
 --
-ALTER TABLE `mahasiswa`
-  ADD CONSTRAINT `mahasiswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
+ALTER TABLE `siswa`
+  ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id_kelas`);
 
 --
 -- Constraints for table `m_ujian`
 --
 ALTER TABLE `m_ujian`
-  ADD CONSTRAINT `m_ujian_ibfk_1` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`id_dosen`),
-  ADD CONSTRAINT `m_ujian_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `matkul` (`id_matkul`);
+  ADD CONSTRAINT `m_ujian_ibfk_1` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`id_guru`),
+  ADD CONSTRAINT `m_ujian_ibfk_2` FOREIGN KEY (`matpel_id`) REFERENCES `matpel` (`id_matpel`);
 
 --
 -- Constraints for table `tb_soal`
 --
 ALTER TABLE `tb_soal`
-  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `matkul` (`id_matkul`),
-  ADD CONSTRAINT `tb_soal_ibfk_2` FOREIGN KEY (`dosen_id`) REFERENCES `dosen` (`id_dosen`);
+  ADD CONSTRAINT `tb_soal_ibfk_1` FOREIGN KEY (`matpel_id`) REFERENCES `matpel` (`id_matpel`),
+  ADD CONSTRAINT `tb_soal_ibfk_2` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`id_guru`);
 
 --
 -- Constraints for table `users_groups`

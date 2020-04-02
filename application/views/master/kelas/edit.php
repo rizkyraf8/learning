@@ -25,7 +25,7 @@
                         <tr>
                             <th># No</th>
                             <th>Kelas</th>
-                            <th>Jurusan</th>
+                            <th>Jenjangkelas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,10 +44,10 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <select required="required" name="jurusan_id[<?=$i?>]" class="input-sm form-control select2" style="width: 100%!important">
+                                        <select required="required" name="jenjangkelas_id[<?=$i?>]" class="input-sm form-control select2" style="width: 100%!important">
                                             <option value="" disabled>-- Pilih --</option>
-                                            <?php foreach ($jurusan as $j) : ?>
-                                                <option <?= $row->jurusan_id == $j->id_jurusan ? "selected='selected'" : "" ?> value="<?=$j->id_jurusan?>"><?=$j->nama_jurusan?></option>
+                                            <?php foreach ($jenjangkelas as $j) : ?>
+                                                <option <?= $row->jenjangkelas_id == $j->id_jenjangkelas ? "selected='selected'" : "" ?> value="<?=$j->id_jenjangkelas?>"><?=$j->nama_jenjangkelas?></option>
                                             <?php endforeach; ?>
                                         </select>
                                         <small class="help-block text-right"></small>
