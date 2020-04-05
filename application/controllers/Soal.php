@@ -204,10 +204,10 @@ class Soal extends CI_Controller
                             exit();
                         } else {
                             if ($method === 'edit') {
-                                if (!unlink($img_src . $getsoal->$file_abj)) {
-                                    show_error('Error saat delete gambar', 500, 'Error Edit Gambar');
-                                    exit();
-                                }
+                                // if (!unlink($img_src . $getsoal->$file_abj)) {
+                                //     show_error('Error saat delete gambar', 500, 'Error Edit Gambar');
+                                //     exit();
+                                // }
                             }
                             $data[$file_abj] = $this->upload->data('file_name');
                         }
@@ -256,18 +256,18 @@ class Soal extends CI_Controller
             $soal = $this->soal->getSoalById($id);
             // Hapus File Soal
             if (!empty($soal->file)) {
-                if (file_exists($path . $soal->file)) {
-                    unlink($path . $soal->file);
-                }
+                // if (file_exists($path . $soal->file)) {
+                //     unlink($path . $soal->file);
+                // }
             }
             //Hapus File Opsi
             $i = 0; //index
             foreach ($abjad as $abj) {
                 $file_opsi = 'file_' . $abj;
                 if (!empty($soal->$file_opsi)) {
-                    if (file_exists($path . $soal->$file_opsi)) {
-                        unlink($path . $soal->$file_opsi);
-                    }
+                    // if (file_exists($path . $soal->$file_opsi)) {
+                    //     unlink($path . $soal->$file_opsi);
+                    // }
                 }
             }
         }
