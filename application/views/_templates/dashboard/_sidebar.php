@@ -123,11 +123,11 @@
 					<i class="fa fa-users"></i> <span>User Management</span>
 				</a>
 			</li>
-			<li class="<?=$page==='settings'?"active":""?>">
+<!-- 			<li class="<?=$page==='settings'?"active":""?>">
 				<a href="<?=base_url('settings')?>" rel="noopener noreferrer">
 					<i class="fa fa-cog"></i> <span>Settings</span>
 				</a>
-			</li>
+			</li> -->
 			<?php endif; ?>
 		</ul>
 
