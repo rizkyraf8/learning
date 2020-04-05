@@ -3,11 +3,11 @@
 class MYPDF extends TCPDF {
     
     public function Header() {
-        $image_file = K_PATH_IMAGES.'logo_example.jpg';
-        $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        // $image_file = K_PATH_IMAGES.'logo_example.jpg';
+        // $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $this->SetFont('helvetica', 'B', 18);
         $this->SetY(13);
-        $this->Cell(0, 15, 'Hasil Ujian', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 15, 'Laporan Hasil Ujian', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     }
 
     public function Footer() {
@@ -61,15 +61,23 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->AddPage();
 
 // create some HTML content
-$html = <<<EOD
-<p>
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque facere sint veniam.
-Dolore distinctio, at consequuntur magnam cupiditate voluptate hic ratione ea illo nulla quis cum optio, nisi eius dignissimos!
-</p>
-<h2>Data Peserta</h2>
-<table id="data-peserta">
+$html = "
+<style>
+    table, th, td {
+        border: 1px solid black;
+        padding:5px;
+    }
+
+    table th {
+        background-color: #c1c1c1;
+        font-weight: bold;
+    }
+
+</style>
+<h2>Data Siswa</h2>
+<table id=\"data-peserta\">
     <tr>
-        <th>NIM</th>
+        <th>NIS</th>
         <td>{$mhs->nim}</td>
     </tr>
     <tr>
@@ -86,7 +94,7 @@ Dolore distinctio, at consequuntur magnam cupiditate voluptate hic ratione ea il
     </tr>
 </table>
 <h2>Data Ujian</h2>
-<table id="data-hasil">
+<table id=\"data-hasil\">
     <tr>
         <th>Mata Pelajaran</th>
         <td>{$ujian->nama_matpel}</td>
@@ -111,7 +119,25 @@ Dolore distinctio, at consequuntur magnam cupiditate voluptate hic ratione ea il
         <td>{$hasil->nilai}</td>
     </tr>
 </table>
-EOD;
+<h2>Jawaban</h2>
+<table>
+    <tr>
+        <th width=\"8%\" align=\"center\">No</th>
+        <th width=\"92%\" align=\"center\">Jawaban</th>
+    </tr>
+";
+$i = 1;
+foreach ($hasil->master_soal as $key => $value) {
+    $html.="
+    <tr>
+        <td align=\"center\">{$i}</td>
+        <td>{$value['jawaban']}</td>
+    </tr>";
+    $i++;
+}
+$html.="
+</table>";
+
 // output the HTML content
 $pdf->writeHTML($html, true, 0, true, 0);
 // reset pointer to the last page

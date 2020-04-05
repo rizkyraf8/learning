@@ -34,6 +34,31 @@ $(document).ready(function () {
             { "data": 'jml_benar' },
             { "data": 'nilai' },
         ],
+        columnDefs: [
+            {
+                "targets": 6,
+                "data": {
+                    "id": "id",
+                    "waktuSelesai": "waktuSelesai"
+                },
+                "render": function (data, type, row, meta) {
+                    var btn;
+                    if (data.waktuSelesai < 60 || data.statusUjian == "N") {
+                        btn = `
+                                <a class="btn btn-xs btn-success" href="${base_url}hasilujian/cetak_list/${data.id}" target="_blank">
+                                    <i class="fa fa-print"></i> Cetak Hasil
+                                </a>`;
+                    } else {
+                        btn = `<a class="btn btn-xs btn-primary">
+                                </i> Masih Dalam Ujian
+                            </a>`;
+                    }
+                    return `<div class="text-center">
+                                    ${btn}
+                                </div>`;
+                }
+            },
+        ],
         order: [
             [1, 'asc']
         ],

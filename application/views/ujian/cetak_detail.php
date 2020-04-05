@@ -3,8 +3,8 @@
 class MYPDF extends TCPDF {
 
     public function Header() {
-        $image_file = K_PATH_IMAGES.'logo_example.jpg';
-        $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        // $image_file = K_PATH_IMAGES.'logo_example.jpg';
+        // $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $this->SetFont('helvetica', 'B', 18);
         $this->SetY(13);
         $this->Cell(0, 15, 'Hasil Ujian', 0, false, 'C', 0, '', 0, false, 'M', 'M');
@@ -65,10 +65,6 @@ $selesai = strftime('%A, %d %B %Y', strtotime($ujian->terlambat));
 
 // create some HTML content
 $html = <<<EOD
-<p>
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque facere sint veniam.
-Dolore distinctio, at consequuntur magnam cupiditate voluptate hic ratione ea illo nulla quis cum optio, nisi eius dignissimos!
-</p>
 <table>
     <tr>
         <th>Nama Ujian</th>
@@ -109,9 +105,8 @@ $html .= <<<EOD
     <thead>
         <tr align="center">
             <th width="5%">No.</th>
-            <th width="35%">Nama</th>
+            <th width="55%">Nama</th>
             <th width="15%">Kelas</th>
-            <th width="25%">Jenjangkelas</th>
             <th width="10%">Jumlah Benar</th>
             <th width="10%">Nilai</th>
         </tr>        
@@ -124,9 +119,8 @@ foreach($hasil as $row) {
 $html .= <<<EOD
     <tr>
         <td align="center" width="5%">{$no}</td>
-        <td width="35%">{$row->nama}</td>
+        <td width="55%">{$row->nama}</td>
         <td width="15%">{$row->nama_kelas}</td>
-        <td width="25%">{$row->nama_jenjangkelas}</td>
         <td width="10%">{$row->jml_benar}</td>
         <td width="10%">{$row->nilai}</td>
     </tr>

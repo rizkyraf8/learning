@@ -326,6 +326,10 @@ class Ujian extends CI_Controller {
 		}
 		
 		$q_soal = $h_ujian->row();
+
+		if ($q_soal->status == "N") {
+			redirect('ujian/list');
+		}
 		
 		$urut_soal 		= explode(",", $q_soal->list_jawaban);
 		$soal_urut_ok	= array();

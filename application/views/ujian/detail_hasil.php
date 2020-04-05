@@ -69,26 +69,28 @@
     </div>
     <div class="table-responsive px-4 pb-3" style="border: 0">
         <table id="detail_hasil" class="w-100 table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nama</th>
-                <th>Kelas</th>
-                <th>Jenjangkelas</th>
-                <th>Jumlah Benar</th>
-                <th>Nilai</th>
-            </tr>        
-        </thead>
-        <tfoot>
-            <tr>
-                <th>No.</th>
-                <th>Nama</th>
-                <th>Kelas</th>
-                <th>Jenjangkelas</th>
-                <th>Jumlah Benar</th>
-                <th>Nilai</th>
-            </tr>
-        </tfoot>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Jenjangkelas</th>
+                    <th>Jumlah Benar</th>
+                    <th>Nilai</th>
+                    <th class="text-center">Aksi</th>
+                </tr>        
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Jenjangkelas</th>
+                    <th>Jumlah Benar</th>
+                    <th>Nilai</th>
+                    <th class="text-center">Aksi</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>

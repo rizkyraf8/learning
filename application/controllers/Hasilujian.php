@@ -76,6 +76,136 @@ class HasilUjian extends CI_Controller {
 		$hasil 	= $this->ujian->HslUjian($id, $mhs->id_siswa)->row();
 		$ujian 	= $this->ujian->getUjianById($id);
 		
+		$master_soal_query = $this->ujian->listPertanyaan(explode(",", $hasil->list_soal));
+
+		$list_jawaban = explode(",", $hasil->list_jawaban);
+		$master_soal = array();
+
+		foreach ($master_soal_query as $key => $value) {
+			$master_soal[$value->id_soal]['soal'] = $value->soal;
+			$jawaban = "";
+
+			foreach ($list_jawaban as $k => $val) {
+				$temp = explode(":", $val);
+				if ($temp[0] == $value->id_soal) {
+					$jawaban = $temp[1];
+
+					switch ($temp[1]) {
+						case 'A':
+							$jawaban.= ". " . $value->opsi_a;
+							break;
+						
+						case 'B':
+							$jawaban.= ". " . $value->opsi_b;
+							break;
+						
+						case 'C':
+							$jawaban.= ". " . $value->opsi_c;
+							break;
+						
+						case 'D':
+							$jawaban.= ". " . $value->opsi_d;
+							break;
+						
+						case 'E':
+							$jawaban.= ". " . $value->opsi_e;
+							break;
+						
+						default:
+							# code...
+							break;
+					}
+
+				}
+			}
+
+			$master_soal[$value->id_soal]['jawaban'] = $jawaban == "" ? "" : $jawaban;
+			if ($jawaban == $value->jawaban) {
+				$master_soal[$value->id_soal]['status'] = "Benar";
+			}else{
+				$master_soal[$value->id_soal]['status'] = "Salah";
+			}
+		}
+
+		$hasil->master_soal = $master_soal;
+
+		$data = [
+			'ujian' => $ujian,
+			'hasil' => $hasil,
+			'mhs'	=> $mhs
+		];
+
+		// echo "<pre>";
+		// print_r($data);
+
+		// die();
+		
+		$this->load->view('ujian/cetak', $data);
+	}
+
+	public function cetak_list($id)
+	{
+		$this->load->library('Pdf');
+		// echo "<pre>";
+		$hasil 	= $this->ujian->HslUjianByIdUjian($id)->row();
+		// print_r($hasil);
+		// die;
+		$mhs 	= $this->ujian->getIdSiswaById($hasil->siswa_id);
+		$ujian 	= $this->ujian->getUjianById($hasil->ujian_id);
+		
+		$master_soal_query = $this->ujian->listPertanyaan(explode(",", $hasil->list_soal));
+
+		$list_jawaban = explode(",", $hasil->list_jawaban);
+		$master_soal = array();
+
+		foreach ($master_soal_query as $key => $value) {
+			$master_soal[$value->id_soal]['soal'] = $value->soal;
+			$jawaban = "";
+
+			foreach ($list_jawaban as $k => $val) {
+				$temp = explode(":", $val);
+				if ($temp[0] == $value->id_soal) {
+					$jawaban = $temp[1];
+
+					switch ($temp[1]) {
+						case 'A':
+							$jawaban.= ". " . $value->opsi_a;
+							break;
+						
+						case 'B':
+							$jawaban.= ". " . $value->opsi_b;
+							break;
+						
+						case 'C':
+							$jawaban.= ". " . $value->opsi_c;
+							break;
+						
+						case 'D':
+							$jawaban.= ". " . $value->opsi_d;
+							break;
+						
+						case 'E':
+							$jawaban.= ". " . $value->opsi_e;
+							break;
+						
+						default:
+							# code...
+							break;
+					}
+
+				}
+			}
+
+			$master_soal[$value->id_soal]['jawaban'] = $jawaban == "" ? "" : $jawaban;
+			if ($jawaban == $value->jawaban) {
+				$master_soal[$value->id_soal]['status'] = "Benar";
+			}else{
+				$master_soal[$value->id_soal]['status'] = "Salah";
+			}
+		}
+
+		$hasil->master_soal = $master_soal;
+
 		$data = [
 			'ujian' => $ujian,
 			'hasil' => $hasil,

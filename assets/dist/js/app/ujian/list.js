@@ -47,7 +47,7 @@ $(document).ready(function () {
                 },
                 "render": function (data, type, row, meta) {
                     var btn;
-                    if (data.ada > 0) {
+                    if ((data.ada > 0 && data.waktuSelesai < 60) || data.statusUjian == "N") {
                         btn = `
 								<a class="btn btn-xs btn-success" href="${base_url}hasilujian/cetak/${data.id_ujian}" target="_blank">
 									<i class="fa fa-print"></i> Cetak Hasil
