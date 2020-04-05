@@ -185,12 +185,12 @@ class Soal extends CI_Controller
                             show_error($error, 500, 'File Soal Error');
                             exit();
                         } else {
-                            if ($method === 'edit') {
-                                if (!unlink($img_src . $getsoal->file)) {
-                                    show_error('Error saat delete gambar <br/>' . var_dump($getsoal), 500, 'Error Edit Gambar');
-                                    exit();
-                                }
-                            }
+                            // if ($method === 'edit') {
+                            //     if (!unlink($img_src . $getsoal->file)) {
+                            //         show_error('Error saat delete gambar <br/>' . var_dump($getsoal), 500, 'Error Edit Gambar');
+                            //         exit();
+                            //     }
+                            // }
                             $data['file'] = $this->upload->data('file_name');
                             $data['tipe_file'] = $this->upload->data('file_type');
                         }
