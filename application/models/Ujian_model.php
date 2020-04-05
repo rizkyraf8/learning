@@ -135,7 +135,7 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(NOW(), d.tgl_selesai)) as waktuSelesai, d.status statusUjian');
+        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) as waktuSelesai, d.status statusUjian');
         $this->$db->from('siswa a');
         $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
         $this->$db->join('jenjangkelas c', 'b.jenjangkelas_id=c.id_jenjangkelas');
@@ -154,7 +154,7 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(NOW(), d.tgl_selesai)) as waktuSelesai, d.status statusUjian, d.siswa_id, d.list_soal, d.list_jawaban, d.ujian_id');
+        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) as waktuSelesai, d.status statusUjian, d.siswa_id, d.list_soal, d.list_jawaban, d.ujian_id');
         $this->$db->from('siswa a');
         $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
         $this->$db->join('jenjangkelas c', 'b.jenjangkelas_id=c.id_jenjangkelas');
