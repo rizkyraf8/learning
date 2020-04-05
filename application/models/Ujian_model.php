@@ -23,6 +23,7 @@ class Ujian_model extends CI_Model {
         $this->datatables->join('kelas d', 'c.kelas_id = d.id_kelas');
         $this->datatables->join('guru e', 'e.id_guru = c.guru_id');
         $this->datatables->where('d.id_kelas', $kelas);
+        $this->datatables->group_by('a.id_ujian');
         return $this->datatables->generate();
     }
 
