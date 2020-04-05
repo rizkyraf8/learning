@@ -16,7 +16,7 @@ class Ujian_model extends CI_Model {
     
     public function getListUjian($id, $kelas)
     {
-        $this->datatables->select("a.id_ujian, e.nama_guru, d.nama_kelas, a.nama_ujian, b.nama_matpel, a.jumlah_soal, CONCAT(a.tgl_mulai, ' <br/> (', a.waktu, ' Menit)') as waktu, (SELECT COUNT(id) FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian) AS ada, TIME_TO_SEC(TIMEDIFF((SELECT tgl_selesai FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian), NOW())) as waktuSelesai, (SELECT status FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian) AS statusUjian");
+        $this->datatables->select("a.id_ujian, e.nama_guru, d.nama_kelas, a.nama_ujian, b.nama_matpel, a.jumlah_soal, CONCAT(a.tgl_mulai, ' <br/> (', a.waktu, ' Menit)') as waktu, (SELECT COUNT(id) FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian) AS ada, TIME_TO_SEC(TIMEDIFF((SELECT tgl_selesai FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian), NOW())) - 25200 as waktuSelesai, (SELECT status FROM h_ujian h WHERE h.siswa_id = {$id} AND h.ujian_id = a.id_ujian) AS statusUjian");
         $this->datatables->from('m_ujian a');
         $this->datatables->join('matpel b', 'a.matpel_id = b.id_matpel');
         $this->datatables->join('kelas_guru c', "a.guru_id = c.guru_id");
@@ -135,7 +135,7 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) as waktuSelesai, d.status statusUjian');
+        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) - 25200 as waktuSelesai, d.status statusUjian');
         $this->$db->from('siswa a');
         $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
         $this->$db->join('jenjangkelas c', 'b.jenjangkelas_id=c.id_jenjangkelas');
@@ -154,7 +154,7 @@ class Ujian_model extends CI_Model {
             $get = "generate";
         }
         
-        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) as waktuSelesai, d.status statusUjian, d.siswa_id, d.list_soal, d.list_jawaban, d.ujian_id');
+        $this->$db->select('d.id, a.nama, b.nama_kelas, c.nama_jenjangkelas, d.jml_benar, d.nilai, TIME_TO_SEC(TIMEDIFF(d.tgl_selesai, NOW())) - 25200 as waktuSelesai, d.status statusUjian, d.siswa_id, d.list_soal, d.list_jawaban, d.ujian_id');
         $this->$db->from('siswa a');
         $this->$db->join('kelas b', 'a.kelas_id=b.id_kelas');
         $this->$db->join('jenjangkelas c', 'b.jenjangkelas_id=c.id_jenjangkelas');
