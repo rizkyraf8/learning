@@ -56,7 +56,7 @@ $(document).ready(function() {
         render: function(data, type, row, meta) {
           return `<div class="text-center">
                       <a class="btn btn-xs btn-success" href="${base_url}banksoal/cetak/${data}" class="btn btn-xs btn-default">
-                          <i class="fa fa-print"></i> Cetak
+                          <i class="fa fa-print"></i> Cetak Soal
                       </a>
                   </div>`;
         }
