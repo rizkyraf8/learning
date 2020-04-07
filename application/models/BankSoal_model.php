@@ -10,7 +10,6 @@ class BankSoal_model extends CI_Model {
 		$this->datatables->join('matpel b', 'b.id_matpel=a.matpel_id');
 		$this->datatables->join('guru c', 'c.id_guru=a.guru_id');
 		$this->datatables->group_by('b.id_matpel');
-		$this->datatables->where('c.id_guru', $id);
 		return $this->datatables->generate();
 	}
 
