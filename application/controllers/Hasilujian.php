@@ -161,11 +161,13 @@ class HasilUjian extends CI_Controller {
 		foreach ($master_soal_query as $key => $value) {
 			$master_soal[$value->id_soal]['soal'] = $value->soal;
 			$jawaban = "";
+			$jawabanField = "";
 
 			foreach ($list_jawaban as $k => $val) {
 				$temp = explode(":", $val);
 				if ($temp[0] == $value->id_soal) {
 					$jawaban = $temp[1];
+					$jawabanField = $temp[1];
 
 					switch ($temp[1]) {
 						case 'A':
@@ -197,7 +199,7 @@ class HasilUjian extends CI_Controller {
 			}
 
 			$master_soal[$value->id_soal]['jawaban'] = $jawaban == "" ? "" : $jawaban;
-			if (trim($jawaban) == trim($value->jawaban)) {
+			if (trim($jawabanField) == trim($value->jawaban)) {
 				$master_soal[$value->id_soal]['status'] = "Benar";
 			}else{
 				$master_soal[$value->id_soal]['status'] = "Salah";
