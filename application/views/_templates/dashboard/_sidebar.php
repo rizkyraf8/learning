@@ -94,6 +94,13 @@
 				</a>
 			</li>
 			<?php endif; ?>
+			<?php if( $this->ion_auth->is_admin()) : ?>
+			<li class="<?=$page==='banksoal'?"active":""?>">
+				<a href="<?=base_url('banksoal')?>" rel="noopener noreferrer">
+					<i class="fa fa-file-text-o"></i> <span>Print Soal</span>
+				</a>
+			</li>
+			<?php endif; ?>
 			<?php if( $this->ion_auth->in_group('guru') ) : ?>
 			<li class="<?=$page==='ujian'?"active":""?>">
 				<a href="<?=base_url('ujian/master')?>" rel="noopener noreferrer">

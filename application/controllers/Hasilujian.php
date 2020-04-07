@@ -145,6 +145,10 @@ class HasilUjian extends CI_Controller {
 
 	public function cetak_list($id)
 	{
+		if (!$this->ion_auth->is_admin() && !$this->ion_auth->in_group('guru')) {
+            show_error('Hanya Administrator dan guru yang diberi hak untuk mengakses halaman ini, <a href="' . base_url('dashboard') . '">Kembali ke menu awal</a>', 403, 'Akses Terlarang');
+        }
+        
 		$this->load->library('Pdf');
 		// echo "<pre>";
 		$hasil 	= $this->ujian->HslUjianByIdUjian($id)->row();
