@@ -5,11 +5,12 @@ class BankSoal_model extends CI_Model {
 
 	public function getDataSoal($id, $guru)
 	{
-		$this->datatables->select('a.matpel_id, b.nama_matpel, c.nama_guru');
+		$this->datatables->select('a.matpel_id, b.nama_matpel, c.nama_guru, c.id_guru');
 		$this->datatables->from('tb_soal a');
 		$this->datatables->join('matpel b', 'b.id_matpel=a.matpel_id');
 		$this->datatables->join('guru c', 'c.id_guru=a.guru_id');
 		$this->datatables->group_by('b.id_matpel');
+		$this->datatables->where('c.id_guru', $id);
 		return $this->datatables->generate();
 	}
 
@@ -26,7 +27,7 @@ class BankSoal_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('matpel m');
 		$this->datatables->join('guru g', 'g.matpel_id=m.id_matpel');
-		$this->db->where('m.id_matpel', $id);
+		$this->db->where('g.id_guru', $id);
 		return $this->db->get()->row();
 	}
 
