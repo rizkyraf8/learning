@@ -123,8 +123,9 @@ $html = "
 <table>
     <tr>
         <th width=\"8%\" align=\"center\">No</th>
-        <th width=\"46%\" align=\"center\">Jawaban Siswa</th>
-        <th width=\"46%\" align=\"center\">Jawaban Benar</th>
+        <th width=\"40%\" align=\"center\">Jawaban Siswa</th>
+        <th width=\"40%\" align=\"center\">Jawaban Benar</th>
+        <th width=\"12%\" align=\"center\">Status</th>
     </tr>
 ";
 $i = 1;
@@ -134,6 +135,7 @@ foreach ($hasil->master_soal as $key => $value) {
         <td align=\"center\">{$i}</td>
         <td>{$value['jawaban']}</td>
         <td>{$value['jawabanSoal']}</td>
+        <td>{$value['status']}</td>
     </tr>";
     $i++;
 }
