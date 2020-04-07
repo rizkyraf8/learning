@@ -92,28 +92,28 @@ class HasilUjian extends CI_Controller {
 
 					switch ($temp[1]) {
 						case 'A':
-							$jawaban.= ". " . $value->opsi_a;
-							break;
+						$jawaban.= ". " . $value->opsi_a;
+						break;
 						
 						case 'B':
-							$jawaban.= ". " . $value->opsi_b;
-							break;
+						$jawaban.= ". " . $value->opsi_b;
+						break;
 						
 						case 'C':
-							$jawaban.= ". " . $value->opsi_c;
-							break;
+						$jawaban.= ". " . $value->opsi_c;
+						break;
 						
 						case 'D':
-							$jawaban.= ". " . $value->opsi_d;
-							break;
+						$jawaban.= ". " . $value->opsi_d;
+						break;
 						
 						case 'E':
-							$jawaban.= ". " . $value->opsi_e;
-							break;
+						$jawaban.= ". " . $value->opsi_e;
+						break;
 						
 						default:
 							# code...
-							break;
+						break;
 					}
 
 				}
@@ -169,28 +169,28 @@ class HasilUjian extends CI_Controller {
 
 					switch ($temp[1]) {
 						case 'A':
-							$jawaban.= ". " . $value->opsi_a;
-							break;
+						$jawaban.= ". " . $value->opsi_a;
+						break;
 						
 						case 'B':
-							$jawaban.= ". " . $value->opsi_b;
-							break;
+						$jawaban.= ". " . $value->opsi_b;
+						break;
 						
 						case 'C':
-							$jawaban.= ". " . $value->opsi_c;
-							break;
+						$jawaban.= ". " . $value->opsi_c;
+						break;
 						
 						case 'D':
-							$jawaban.= ". " . $value->opsi_d;
-							break;
+						$jawaban.= ". " . $value->opsi_d;
+						break;
 						
 						case 'E':
-							$jawaban.= ". " . $value->opsi_e;
-							break;
+						$jawaban.= ". " . $value->opsi_e;
+						break;
 						
 						default:
 							# code...
-							break;
+						break;
 					}
 
 				}
@@ -202,6 +202,33 @@ class HasilUjian extends CI_Controller {
 			}else{
 				$master_soal[$value->id_soal]['status'] = "Salah";
 			}
+
+			switch ($value->jawaban) {
+				case 'A':
+				$master_soal[$value->id_soal]['jawabanSoal']= $value->jawaban. ". " . $value->opsi_a;
+				break;
+
+				case 'B':
+				$master_soal[$value->id_soal]['jawabanSoal']= $value->jawaban. ". " . $value->opsi_b;
+				break;
+
+				case 'C':
+				$master_soal[$value->id_soal]['jawabanSoal']= $value->jawaban. ". " . $value->opsi_c;
+				break;
+
+				case 'D':
+				$master_soal[$value->id_soal]['jawabanSoal']= $value->jawaban. ". " . $value->opsi_d;
+				break;
+
+				case 'E':
+				$master_soal[$value->id_soal]['jawabanSoal']= $value->jawaban. ". " . $value->opsi_e;
+				break;
+
+				default:
+							# code...
+				break;
+			}
+
 		}
 
 		$hasil->master_soal = $master_soal;
@@ -212,7 +239,7 @@ class HasilUjian extends CI_Controller {
 			'mhs'	=> $mhs
 		];
 		
-		$this->load->view('ujian/cetak', $data);
+		$this->load->view('ujian/cetak_guru', $data);
 	}
 
 	public function cetak_detail($id)

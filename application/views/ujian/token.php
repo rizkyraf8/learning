@@ -1,6 +1,6 @@
 <div class="callout callout-info">
     <h4>Peraturan Ujian!</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime minus dolores accusantium fugiat debitis modi voluptates non consequuntur nemo expedita nihil laudantium commodi voluptatum voluptatem molestiae consectetur incidunt animi, qui exercitationem? Nisi illo, magnam perferendis commodi consequuntur impedit, et nihil excepturi quas iste cum sunt debitis odio beatae placeat nemo..</p>
+    <p>Mohon di pastikan internet lancar tidak ada kendala dan masalah. Ketika mengetik tombol mulai Anda harus menyelesaikan seuai dengan waktu yang tertera. Waktu akan terus berjalan walaupun halaman ini di keluarkan.</p>
 </div>
 <div class="box box-primary">
     <div class="box-header with-border">
