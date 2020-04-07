@@ -35,4 +35,4 @@
     <?=form_close();?>
 </div>
 
-<script src="<?=base_url()?>assets/dist/js/app/banksoal/data.js"></script>
+<script src="<?=base_url()?>assets/dist/js/app/banksoal/list.js"></script>
