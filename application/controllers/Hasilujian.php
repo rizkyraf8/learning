@@ -197,7 +197,7 @@ class HasilUjian extends CI_Controller {
 			}
 
 			$master_soal[$value->id_soal]['jawaban'] = $jawaban == "" ? "" : $jawaban;
-			if ($jawaban == $value->jawaban) {
+			if (trim($jawaban) == trim($value->jawaban)) {
 				$master_soal[$value->id_soal]['status'] = "Benar";
 			}else{
 				$master_soal[$value->id_soal]['status'] = "Salah";
