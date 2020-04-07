@@ -42,12 +42,14 @@ class Banksoal extends CI_Controller {
         $this->output_json($this->soal->getDataSoal($id, $guru), false);
     }
 
-    public function cetak($id = null, $guru = "")
+    public function cetak($id = null)
     {
         $this->load->library('Pdf');
 
-        $matpel = $this->soal->getMatpelById($guru);
-        $soal = $this->soal->getSoalById($id);
+        $id = explode("-", $id);
+
+        $matpel = $this->soal->getMatpelById($id[0]);
+        $soal = $this->soal->getSoalById($id[1]);
 
         $data = [
             'matpel' => $matpel,
